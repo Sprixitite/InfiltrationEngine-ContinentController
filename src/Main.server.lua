@@ -12,13 +12,13 @@ local hookName = nil
 
 local ContinentController = {}
 
-function ContinentController.OnAPILoaded(api: APIReference, wranglerState)
+function ContinentController.OnAPILoaded(api: APIReference, continentState)
 	hookName = hookName or api.GetRegistrantFactory("Sprix", "ContinentController")
-	wranglerState[1] = api.AddHook("PreSerialize", hookName("PreSerialize"), ContinentController.OnPreSerialize)
+	continentState[1] = api.AddHook("PreSerialize", hookName("PreSerialize"), ContinentController.OnPreSerialize)
 end
 
-function ContinentController.OnAPIUnloaded(api: APIReference, wranglerState)
-	for _, token in ipairs(wranglerState) do
+function ContinentController.OnAPIUnloaded(api: APIReference, continentState)
+	for _, token in ipairs(continentState) do
 		api.RemoveHook(token)
 	end
 end
